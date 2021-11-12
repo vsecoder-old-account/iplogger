@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>IPlogger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/93484853?s=200&v=4">
+    <style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&display=swap');
+    * {
+        box-sizing: border-box;
+        font-family: 'JetBrains Mono', monospace;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        background-color: #101420;
+    }
+    .banner {
+        width: 100%;
+        max-height: 400px;
+    }
+    .btn {
+        background-color: #8520af !important;
+        width: 20%;
+        text-decoration: none;
+        color: white;
+        border-color: #710c9b;
+        font-size: 18px;
+        letter-spacing: 0.025em;
+        line-height: 38px;
+        font-weight: 900;
+        height: 40px;
+        padding: 10px 20px;
+    }
+    hr {
+        border: 1px solid #dadada;
+        margin-top: 40px;
+        margin-bottom: 30px;
+    }
+    main div {
+        width: 1000px;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: white;
+    }
+    .overlay, .overlay1 {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0);
+        transition: opacity 500ms;
+    }
+    .popup {
+        margin: 70px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 5px;
+        width: 350px;
+        position: relative;
+        transition: all 5s ease-in-out;
+    }
+    @media screen and (max-width: 1000px) {
+        main div {
+            width: 800px;
+        }
+    }
+    @media screen and (max-width: 800px) {
+        main div {
+            width: 100%;
+        }
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="https://diasporafoundation.org/assets/pages/index/earthD2-f16b54706fa79ccd9daf99454afed4327ea6ccace284ad3de4878e77d94dc6e0.png" class="banner">
+        </div>
+    </header>
+    <main>
+        <div>        
+            {% block content %}
+                This is content
+            {% endblock %}
+        </div>
+        <div>© Copyright 2021 IPlogger. <a href="#">LICENSE</a></div>
+    </main>
+
+    <div style="display: none;" class="overlay">
+        <div class="popup">
+            <h1>Перейти в логгер:</h1>
+            <p>Введите пароль</p>
+                <form action="/log/{{ url }}">
+                    <input name="password" type="password" placeholder="Пароль...">
+                    <input type="submit" value="->" class="btn1">
+                </form>
+            </div>
+    </div>
+    <div style="display: none;" class="overlay1">
+        <div class="popup">
+            <h1>Создать логгер:</h1>
+            <p>Введите пароль, он будет использоваться для получения данных!!!</p>
+            <form action="/create">
+                <input name="password" type="password" placeholder="Пароль...">
+                <input type="submit" value="->" class="btn1">
+            </form>
+        </div>
+    </div>
+    <script>
+        function popup() {
+            document.querySelector('.overlay').style.display = 'block';
+        }
+        function popup1() {
+            document.querySelector('.overlay1').style.display = 'block';
+        }
+    </script>
+</body>

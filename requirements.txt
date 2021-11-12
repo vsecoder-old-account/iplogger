@@ -1,0 +1,10 @@
+werkzeug
+fastapi
+gunicorn
+requests
+iptools
+geoip2
+starlette
+uvicorn
+jinja2
+sqlalchemy
