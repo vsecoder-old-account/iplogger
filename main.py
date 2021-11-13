@@ -63,7 +63,7 @@ def log_page(request: Request, url, password):
 def logger_page(request: Request, url):
     try:
         user_agents = request.headers.get('User-Agent')
-        ip = '109.61.250.80'
+        ip = request.client.host
     except Exception as e:
         result = {'ip': '-.-.-.-', 'user_agents': '', 'error': f'{e}'}
     if ip not in private:
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     # dev
     uvicorn.run('main:app',
         host="0.0.0.0", 
-        port=8000,
+        port=int(os.environ.get("PORT", 5000)),
         log_level="debug",
         http="h11",
         reload=True, 
