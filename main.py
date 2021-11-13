@@ -63,7 +63,7 @@ def log_page(request: Request, url, password):
 def logger_page(request: Request, url):
     try:
         user_agents = request.headers.get('User-Agent')
-        ip = '109.61.250.80'
+        ip = request.client.host
     except Exception as e:
         result = {'ip': '-.-.-.-', 'user_agents': '', 'error': f'{e}'}
     if ip not in private:
