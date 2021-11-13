@@ -23,3 +23,23 @@
   * status.thml - рабочий шаблон страницы со статусом работы сервера.
 * create_db.py - файл для создание БД
 * main.py - основной код сервера
+
+## Установка ##
+
+### Windows:
+
+```bash
+git clone https://github.com/vsecoder/iplogger
+cd iplogger
+pip install -r requirements.txt
+python main.py
+```
+
+### Linux:
+
+```bash
+git clone https://github.com/vsecoder/iplogger
+cd iplogger
+pip3 install -r requirements.txt
+python3 main.py
+```
