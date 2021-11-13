@@ -2,29 +2,33 @@
 
 {% block content %}
     <script src="https://bestiejs.github.io/platform.js/vendor/platform-1.3.5.js"></script>
-    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <h1>IPlogger</h1>
-    <p onclick="navigator.clipboard.writeText('{{ link }}')" style="
+    <p onclick="navigator.clipboard.writeText('{{ link }}')" title="Нажмите чтобы скопировать" style="
         cursor: pointer;
         padding: 5px;
         border: 1px solid #dadada;
-    ">{{ link }}</p>
+    ">{{ link }} <img style='width: 30px;vertical-align: middle;' src="https://raw.githubusercontent.com/vsecoder/icons/main/bx-copy.svg"></p>
     <hr>
-    <table border="1" width="80%">
+    <table border="1" width="100%">
         <tr class="head">
-            <td>IP</td>
-            <td>Data</td>
-            <td>User</td>
+            <th>IP</th>
+            <th>GEO</th>
+            <th>User</th>
         </tr>
         {% for el in ipList %}
         
             <tr class="ips">
-                <td>{{ el.ip }}</td>
+                <td>
+                    <a href="https://www.google.ru/maps/place/@{{ el.data.latitude }},{{ el.data.longitude }},11z" target="_blank"><img src="https://iplogger.ru/i/lc-ip.png" style="width: 30px;vertical-align: middle;"></a> {{ el.ip }} 
+                </td>
                 <td>
                     {% if el.data %}
-                        <a href="https://www.google.ru/maps/place/@{{ el.data.latitude }},{{ el.data.longitude }},11z" target="_blank">
-                            {{ el.data.aso }} {{ el.data.country }} {{ el.data.city }}
-                        </a>
+                        <script>
+                            iso = "{{ el.data.iso_code }}"
+                            document.write("<img style='width: 30px;vertical-align: middle;' src='https://iplogger.ru/i/countries/" + iso.toLowerCase() + ".png'>")
+                        </script>
+                        {{ el.data.aso }}
+                        {{ el.data.city }}
                     {% else %} 
                         <span style="color: red;">
                             {{ el.error }}
@@ -32,12 +36,20 @@
                     {% endif %}
                 </td>
                 <td>
-                    <!--<script>
+                    <script>
                         var info = platform.parse("{{ el.user_agents }}");
                         console.log(info);
-                        document.write('<i class="bx bx-firefox"></i>');
-                    </script>-->
-                    {{ el.user_agents }}
+                        document.write(info.description + " ")
+                        document.write('<img title="' + info.version + " " + info.layout + '" src="https://iplogger.ru/i/icons/' + info.name.toLowerCase() + '.png">');
+                        if (info.os.family.toLowerCase() == 'windows') {
+                            document.write('<img title="' + info.os + '" src="https://iplogger.ru/i/icons/windows%2010.png">')
+                        } else if (info.os.family.toLowerCase() == 'android') {
+                            document.write('<img title="' + info.os + '" src="https://iplogger.ru/i/icons/android.png">')
+                        } else {
+                            document.write('<img title="' + info.os + '" src="https://iplogger.ru/i/icons/linux.png">')
+                        }
+                    </script>
+                    <!--{{ el.user_agents }}-->
                 </td>
             </tr>
         {% endfor %}
