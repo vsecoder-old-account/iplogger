@@ -14,6 +14,12 @@ from fastapi import Request
 from starlette.templating import Jinja2Templates
 from starlette.responses import Response
 
+# create DB
+try:
+    import create_db
+except:
+    pass
+
 # Create server
 app = FastAPI()
 templates = Jinja2Templates('templates')
